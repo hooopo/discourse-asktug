@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class FakeEmailInterceptor
   def self.delivering_email(message)
     origin_to = message.to

@@ -3,7 +3,7 @@
 # name: discourse-asktug
 # about: Discourse plugin for asktug.com
 # version: 0.0.1
-# authors: 
+# authors: Hooopo Wang
 # url: https://github.com/hooopo/discourse-asktug
 # required_version: 2.7.0
 
