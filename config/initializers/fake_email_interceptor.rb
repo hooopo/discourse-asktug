@@ -1,13 +1,11 @@
 # frozen_string_literal: true
-class FakeEmailInterceptor
-  def self.delivering_email(message)
-    origin_to = message.to
-    message.to = message.to.reject { |email| email.to_s =~ /fake.email/ }
-    if message.to.blank?
-      message.perform_deliveries = false
-      Rails.logger.warn "rejected #{origin_to.to_s}"
+module FakeEmailInterceptor
+  def send
+    if @message && @message.to && @message.to.select { |email| email =~ /fake.email/ }.present?
+      return skip(SkippedEmailLog.reason_types[:custom], custom_reason: 'fake email')
     end
+    super
   end
 end
 
-ActionMailer::Base.register_interceptor(FakeEmailInterceptor)
+::Email::Sender.send(:prepend, FakeEmailInterceptor)
