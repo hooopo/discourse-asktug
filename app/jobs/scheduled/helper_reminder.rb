@@ -38,15 +38,15 @@ module Jobs
     end
 
     def category_can_push?(topic)
-       @@category_ids ||= Category.where(name: ["部署&监控", "备份&数据迁移", "开发者&应用适配", "性能调优", "Real-Time HTAP", "互助交流区"]).pluck(:id)
+      @@category_ids ||= Category.where(name: ["部署&监控", "备份&数据迁移", "开发者&应用适配", "性能调优", "Real-Time HTAP", "互助交流区"]).pluck(:id)
        @@other_category_ids ||= Category.where(name: ['建议&反馈']).pluck(:id)
        return true if @@category_ids.include?(topic.category_id) || @@category_ids.include?(topic.category&.parent_category_id)
        return true if @@other_category_ids.include?(topic.category_id)
-       return false
+       false
     end
 
     def post_can_push?(topic)
-      topic.posts.map { |x| x.user_id}.reject { |x| x == topic.user_id || x == -1}.size >= 1 
+      topic.posts.map { |x| x.user_id }.reject { |x| x == topic.user_id || x == -1 }.size >= 1
     end
 
   end

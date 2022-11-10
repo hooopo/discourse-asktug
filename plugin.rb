@@ -14,6 +14,8 @@ enabled_site_setting :asktug_enabled
 after_initialize do
   [
     "../config/initializers/fake_email_interceptor.rb",
-    "../app/jobs/scheduled/helper_reminder.rb"
+    "../app/jobs/scheduled/helper_reminder.rb",
+    "../app/jobs/regular/async_new_post_manager.rb",
+    "../app/controllers/posts_controller.rb"
   ].each { |path| require File.expand_path(path, __FILE__) }
 end
