@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 module Jobs
-  class AsyncNewPostManager < Jobs::Base
+  class AsyncNewPostManager < ::Jobs::Base
     sidekiq_options queue: 'critical', retry: false
-    
+
     def execute(opts)
       Rails.logger.info "start async group msg"
       manager = NewPostManager.new(opts[:user], opts[:manager])
