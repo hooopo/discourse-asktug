@@ -2,9 +2,9 @@
 module Jobs
   class AsyncNewPostManager < Jobs::Base
 
-    def execute(user, opts)
+    def execute(opts)
       Rails.logger.info "start async group msg"
-      manager = NewPostManager.new(user, opts)
+      manager = NewPostManager.new(opts[:user], opts[:manager])
       manager.perform
       Rails.logger.info "finish async group msg"
     end
